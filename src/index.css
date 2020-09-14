@@ -1,0 +1,9 @@
+html,body{
+    background-color: #ffffff;
+    font-family:"Microsoft Yahei";
+    color: #333333;
+}
+
+*{
+    box-sizing: border-box;
+}
