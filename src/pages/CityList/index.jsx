@@ -1,10 +1,10 @@
 // react-virtualized 长列表的使用
 import React from 'react';
 import { NavBar, Icon } from 'antd-mobile';
-import axios from 'axios'
-
 import { formatCityList, getCurrentCity } from '../../utils'
 
+
+import axios from 'axios'
 import './index.scss'
 
 export default class CityList extends React.Component {
@@ -31,12 +31,14 @@ export default class CityList extends React.Component {
         let currentCity = getCurrentCity()
         let { cities, citiesIndex } = formatCityList(body)
 
-
+        //添加最热城市
         citiesIndex.unshift("hot")
+        // 添加当前城市
         citiesIndex.unshift("#")
+        //添加最热城市索引
         cities["hot"] = hotCities
+        // 添加当前城市索引
         cities['#'] = [currentCity]
-
         this.setState({
             citiesIndex,
             cities

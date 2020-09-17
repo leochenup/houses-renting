@@ -1,4 +1,4 @@
-import { List } from "antd-mobile";
+import { getCityFromLocal, setLocalCity } from './city'
 import axios from 'axios'
 
 const formatCityList = list => {
@@ -34,27 +34,21 @@ const formatCityList = list => {
 
 const BMap = window.BMap
 const getCurrentCity = () => {
-
-    //判断内存中是否有当前城市信息
-    let bufferCity = JSON.parse(localStorage.getItem("hkzf_city"))
+    let bufferCity = getCityFromLocal()
     if (!bufferCity) {
-        let myCity = new BMap.LocalCity();
-        myCity.get(async (result) => {
-            var cityName = result.name;
-            cityName = cityName.split("市")[0]
-            //调用接口获取城市信息
-            try {
+        return new Promise(resolve => {
+            let myCity = new BMap.LocalCity();
+            myCity.get(async (result) => {
+                var cityName = result.name;
                 const res = await axios.get(`http://127.0.0.1:8080/area/info?name=${cityName}`)
                 bufferCity = res.data.body
-                //将城市信息缓存到内存中
-                localStorage.setItem('hkzf_city', JSON.stringify({ label: bufferCity.label, value: bufferCity.value }))
-            } catch (error) {
-                return ({ label: "上海", value: "AREA|dbf46d32-7e76-1196" })
-            }
+                setLocalCity({ label: bufferCity.label, value: bufferCity.value })
+                resolve(bufferCity)
+            })
         })
-
+    } else {
+        return bufferCity
     }
-    return bufferCity
 }
 
 

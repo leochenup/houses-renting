@@ -55,7 +55,7 @@ export default class Index extends React.Component {
     async componentDidMount() {
 
         //获取当前城市信息
-        let currentCity = getCurrentCity()
+        const currentCity = await getCurrentCity()
         this.setState({
             localCity: currentCity.label
         })
