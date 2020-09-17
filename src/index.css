@@ -30,3 +30,7 @@ span {
 html,body,#root,.app{
     height: 100%;
 }
+
+ul,li{
+    list-style: none;
+}

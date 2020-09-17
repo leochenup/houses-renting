@@ -52,8 +52,45 @@ const getCurrentCity = () => {
 }
 
 
+const handlerIndex = {
+    CITYLIST: "CITYLIST",
+    INDEXLIST: 'INDEXLIST',
+    run: (c, str) => {
+        switch (c) {
+            case "#":
+                if (str === 'CITYLIST') {
+                    c = "当前位置"
+                }
+                break;
+
+            case "hot":
+                if (str === 'CITYLIST') {
+                    c = "热门城市"
+                } else {
+                    c = "热"
+                }
+                break;
+            default:
+                c = c.toUpperCase()
+                break
+        }
+        return c
+    }
+}
+
+
+const getListScrollToNumber = (indexList, v) => {
+
+    let num = 0
+    for (let i = 0; indexList[i] !== v; i++) {
+        num++
+    }
+    return num
+}
 
 export {
     formatCityList,
-    getCurrentCity
+    getCurrentCity,
+    handlerIndex,
+    getListScrollToNumber
 }

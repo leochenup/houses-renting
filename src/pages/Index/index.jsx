@@ -144,6 +144,12 @@ export default class Index extends React.Component {
         ))
     }
 
+    // chooseCity = (city) => {
+    //     this.setState({
+    //         localCity: city
+    //     })
+    // }
+
     render() {
         return (
             <div className="index">
