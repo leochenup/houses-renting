@@ -1,0 +1,160 @@
+// css 书写顺序
+.swiper-img-box {
+    display: inline-block;
+    width: 100%;
+    height: 212px
+}
+
+// 导航 flex 布局 样式
+//***********************************
+.nav {
+    text-align: center!important;
+    padding: 10px 0;
+    img {
+        width: 48px;
+        height: 48px;
+    }
+    p {
+        margin-top: 7px;
+        font-size: 13px;
+    }
+}
+
+//***********************************
+.groups {
+    padding: 0 10px;
+    background-color: #f6f5f6;
+    //子元素有 magin 造成宽高度塌陷，设置后解决
+    overflow: hidden;
+    &-title {
+        margin: 15px 0 15px 10px;
+        h3 {
+            font-size: 15px;
+        }
+        span {
+            color: #787d82;
+            font-size: 14px;
+        }
+    }
+    .grid {
+        &-item {
+            padding: 0 13px;
+            img {
+                width: 55px;
+            }
+            .dec {
+                .title {
+                    font-weight: bold;
+                    font-size: 13px;
+                    margin-bottom: 5px;
+                }
+                .content {
+                    font-size: 12px;
+                    color: #999;
+                }
+            }
+        }
+        .am-flexbox {
+            background-color: transparent;
+            .am-flexbox-item .am-grid-item-content {
+                padding: 8px 0;
+            }
+        }
+        .am-grid-item {
+            background-color: #fff;
+            margin-bottom: 10px;
+            height: 85px;
+        }
+        .am-grid-item:first-child {
+            margin-right: 10px;
+        }
+    }
+}
+
+.info {
+    display: block;
+    padding: 20px 20px 0 20px;
+    &-title {
+        margin-bottom: 10px;
+        h3 {
+            font-size: 15px;
+        }
+    }
+    .info-item:last-child {
+        border-bottom: 0;
+    }
+    .info-item {
+        display: flex;
+        justify-content: start;
+        border-bottom: .1px solid rgba(0, 0, 0, 0.1);
+        padding: 10px 0;
+        .info-item-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0 10px;
+            .info-item-content-title {
+                p {
+                    font-size: 13px;
+                    font-weight: bold;
+                }
+            }
+            .info-item-content-desc {
+                display: flex;
+                justify-content: space-between;
+                p {
+                    font-size: 12px;
+                    color: #999;
+                }
+            }
+        }
+    }
+}
+
+.search-box {
+    position: absolute;
+    width: 100%;
+    top: 25px;
+    z-index: 10;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 10px;
+    .search-left {
+        background-color: #fff;
+        width: 100%;
+        margin: 0 10px;
+        border-radius: 3px;
+        height: 34px;
+        padding: 5px 5px 5px 8px;
+        line-height: 34px;
+        .location {
+            span {
+                font-size: 13px;
+                margin-right: 5px;
+            }
+            .icon-arrow {
+                font-size: 12px!important;
+            }
+        }
+        .search-form {
+            border-left: 1px solid #e5e5e5;
+            height: 16px;
+            line-height: 16px;
+            padding-left: 10px;
+            margin-left: 10px;
+            .icon-seach {
+                font-size: 12px!important;
+                margin-right: 4px;
+                color: #999;
+            }
+            span {
+                font-size: 13px;
+                color: #999;
+            }
+        }
+    }
+    .icon-map {
+        color: #fff;
+        font-size: 25px;
+    }
+}

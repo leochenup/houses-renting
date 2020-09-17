@@ -1,9 +1,32 @@
-html,body{
+html,
+body {
     background-color: #ffffff;
-    font-family:"Microsoft Yahei";
+    font-family: "Microsoft Yahei";
     color: #333333;
 }
 
-*{
+* {
     box-sizing: border-box;
+    touch-action: pan-y;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #333333;
+}
+
+h3,
+span {
+    margin: 0;
+    padding: 0;
+}
+
+
+html,body,#root,.app{
+    height: 100%;
 }
