@@ -1,5 +1,5 @@
 import { getCityFromLocal, setLocalCity } from './city'
-import axios from 'axios'
+import { API } from './api'
 
 const formatCityList = list => {
     //城市列表
@@ -27,7 +27,8 @@ const formatCityList = list => {
 
     return {
         cities,
-        citiesIndex
+        citiesIndex,
+        API
     }
 }
 
@@ -40,7 +41,8 @@ const getCurrentCity = () => {
             let myCity = new BMap.LocalCity();
             myCity.get(async (result) => {
                 var cityName = result.name;
-                const res = await axios.get(`http://127.0.0.1:8080/area/info?name=${cityName}`)
+                console.log(result)
+                const res = await API.get(`/area/info?name=${cityName}`)
                 bufferCity = res.data.body
                 setLocalCity({ label: bufferCity.label, value: bufferCity.value })
                 resolve(bufferCity)
@@ -92,5 +94,6 @@ export {
     formatCityList,
     getCurrentCity,
     handlerIndex,
-    getListScrollToNumber
+    getListScrollToNumber,
+    API
 }

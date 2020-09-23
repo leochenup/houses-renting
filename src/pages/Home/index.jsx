@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from 'antd-mobile';
-import { Route, Link } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { TabBar } from 'antd-mobile';
 import './index.css'
 
@@ -9,8 +8,6 @@ import Profile from '../Profile/index'
 import Index from '../Index/index'
 import HouseList from '../HouseList/index'
 import News from '../News/index'
-
-import TabBarItem from '../../components/TabBarItem/index'
 
 
 const TABBARLIST = [

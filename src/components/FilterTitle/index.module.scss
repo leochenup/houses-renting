@@ -1,0 +1,38 @@
+.selectBar {
+    z-index: 99 !important;
+    width: 100%;
+    height: 45px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    :global {
+        .am-picker {
+            margin: 5px 0 !important;
+        }
+    }
+
+    .checkNavItem {
+        color: #21b97a !important;
+    }
+
+    .tint{
+        color: #21b97a !important;
+    }
+
+    .selectItem {
+        height: 100%;
+        flex: 1;
+        line-height: 45px;
+        text-align: center;
+
+        :global {
+            .icon-arrow {
+                font-size: 12px !important;
+                color: #999999;
+                margin-left: 5px;
+            }
+        }
+    }
+}

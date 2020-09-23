@@ -1,0 +1,43 @@
+.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.pickerOuter {
+    transition: .3s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+
+    :global {
+        .am-picker-col-item {
+            font-size: 14px !important;
+        }
+
+        .am-picker {
+            background-color: #ffffff;
+        }
+    }
+
+    .controllBtn {
+        height: 50px;
+        width: 100%;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        display: flex;
+        background-color: #ffffff;
+
+        .cancel {
+            text-align: center;
+            line-height: 50px;
+            flex: 1;
+            color: #21b97a;
+        }
+
+        .comfirm {
+            text-align: center;
+            line-height: 50px;
+            flex: 2;
+            color: #ffffff;
+            background-color: #21b97a;
+        }
+    }
+}

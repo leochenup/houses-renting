@@ -1,7 +1,8 @@
 import React from 'react'
-import { Carousel, Flex, WhiteSpace, Grid } from 'antd-mobile'
+import { Carousel, Flex, Grid } from 'antd-mobile'
 import { Link } from 'react-router-dom'
 import { getCurrentCity } from '../../utils/index'
+import { SearchBar } from '../../components'
 
 import axios from 'axios'
 import './index.scss'
@@ -34,12 +35,6 @@ const NAVLIST = [
         title: "去出租"
     },
 ]
-
-// //获取当前地理位置
-// navigator.geolocation.getCurrentPosition(position => {
-//     console.log(position)
-// })
-
 
 export default class Index extends React.Component {
 
@@ -144,35 +139,19 @@ export default class Index extends React.Component {
         ))
     }
 
-    // chooseCity = (city) => {
-    //     this.setState({
-    //         localCity: city
-    //     })
-    // }
-
     render() {
         return (
             <div className="index">
 
                 {/* 轮播图 */}
-                <div className="swiper">
-
-                    {/* 首页搜索导航 */}
+                <div className="swiper" >
                     <Flex className="search-box">
-                        <Flex className="search-left">
-                            <div className="location" onClick={() => this.props.history.push("/citylist")}>
-                                <span>{this.state.localCity}</span>
-                                <i className="iconfont icon-arrow"></i>
-                            </div>
-
-                            <div className="search-form" onClick={() => this.props.history.push("/search")}>
-                                <i className="iconfont icon-seach"></i>
-                                <span>请输入小区或地址</span>
-                            </div>
-                        </Flex>
+                        <SearchBar
+                            localCity={this.state.localCity}
+                            style={{ margin: '0 10px' }}
+                        />
                         <i className="iconfont icon-map" onClick={() => this.props.history.push("/map")}></i>
                     </Flex>
-
                     {this.state.isSwiperLoading
                         ? null
                         : (<Carousel

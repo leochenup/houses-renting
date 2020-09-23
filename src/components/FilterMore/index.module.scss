@@ -1,0 +1,105 @@
+.show {
+    right: 0 !important;
+    visibility: visible !important;
+}
+
+.moreBox {
+    visibility: hidden;
+    transition: .3s ease-in-out;
+    position: fixed;
+    top: 0;
+    right: -80%;
+    z-index: 99999;
+    width: 80%;
+    height: 100%;
+    background-color: #ffffff;
+    padding: 0 15px;
+    overflow-y: scroll;
+    padding-bottom: 50px;
+
+
+
+    .moreItemBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 20px 0 10px 0;
+
+        .moreTitle {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .optionsBox {
+            display: flex;
+            justify-content: start;
+            flex-wrap: wrap;
+
+
+            .option {
+                font-size: 13px;
+                color: #999999;
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                padding: 8px 20px;
+                border-radius: 3px;
+                margin-right: 20px;
+                margin-bottom: 15px;
+            }
+        }
+    }
+
+    .moreItemBox:nth-last-child(2) {
+        border-bottom: 0px solid !important;
+    }
+
+    .btnBox {
+        position: fixed;
+        right: -80%;
+        bottom: 0;
+        width: 80%;
+        height: 50px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        display: flex;
+        transition: .3s ease-in-out;
+
+        .cancel {
+            flex: 1;
+            background-color: #ffffff;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        .confrim {
+            flex: 1;
+            background-color: #21b97a;
+            color: #ffffff;
+            font-size: 16px;
+            line-height: 50px;
+            text-align: center;
+        }
+    }
+}
+
+
+.showMask {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.mask {
+    visibility: hidden;
+    transition: .3s ease-in-out;
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.selected {
+    color: #21b97a !important;
+    border: 1px solid #21b97a !important;
+}

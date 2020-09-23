@@ -1,0 +1,174 @@
+.map,
+.container {
+    width: 100%;
+    height: 100%;
+
+}
+
+.map {
+    position: relative;
+    top: -45px;
+    padding-top: 45px;
+    // padding-bottom: 45px;
+    // overflow: hidden;
+}
+
+
+.bubbel,
+.bubbelLong,
+.bubbelLongLong {
+    width: 70px;
+    height: 50px;
+    line-height: 1;
+    display: inline-block;
+    position: absolute;
+    border-radius: 10px;
+    background-color: rgba(12, 181, 106, 0.8);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    text-align: center;
+    cursor: pointer;
+}
+
+.bubbelLong {
+    width: 100px;
+}
+
+.bubbelLongLong {
+    width: 150px;
+}
+
+.name {
+    padding: 8px 0 6px 0;
+}
+
+.trangle {
+    position: absolute;
+    width: 20px;
+    height: 35px;
+    top: 45px;
+    left: 10px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-top: 15px solid rgba(12, 181, 106, 0.7);
+}
+
+
+
+.houseListBox {
+    width: 100%;
+    height: 50%;
+    background-color: #fff;
+    position: absolute;
+    bottom: -50%;
+    transform: translateY(45px);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: .3s ease-in-out;
+    display: none;
+}
+
+.houseListTitleBox {
+    position: absolute;
+    width: 100%;
+    height: 45px;
+    background-color: #21b97a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    border-top: 5px solid #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.listTitleMore {
+    font-size: 14px;
+    color: #fff;
+    overflow: hidden;
+}
+
+.listTitle {
+    font-size: 16px;
+    color: #fff;
+}
+
+.moveUp {
+    bottom: -45px;
+    transform: translateY(0);
+}
+
+
+
+
+.listItemBox {
+    width: 100%;
+    border-bottom: .5px solid rgba(10, 10, 10, 0.1);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 10px 10px;
+
+    img {
+        width: 100px;
+        height: 80px;
+        align-self: center;
+    }
+
+    .rightDesc {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-left: 10px;
+
+        .topTitle {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 5px;
+
+            .topTitleP1 {
+                font-size: 15px;
+                font-weight: 500;
+                margin-bottom: 10px;
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 225px;
+            }
+
+            .topTitleP2 {
+                font-size: 12px;
+                color: #999;
+            }
+        }
+
+        .bottomTitle {
+            display: flex;
+            position: relative;
+            justify-content: flex-start;
+            align-items: baseline;
+            flex-wrap: wrap;
+
+            .houseTag {
+                font-size: 12px;
+                display: block;
+                color: #21b97a;
+                padding: 2px 5px;
+                border-radius: 2px;
+                border: 1px solid #21b97a;
+                margin-right: 5px;
+                margin-bottom: 5px;
+            }
+        }
+
+        .price {
+            display: block;
+            width: 100%;
+            font-size: 15px;
+            color: orange;
+            text-align: left;
+        }
+    }
+}

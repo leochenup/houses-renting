@@ -1,22 +1,29 @@
 // react-virtualized 长列表的使用
 import React from 'react';
-import { NavBar, Icon } from 'antd-mobile';
+import { NavBar, Modal, Toast } from 'antd-mobile';
 import { formatCityList, getCurrentCity } from '../../utils'
 import { setLocalCity } from '../../utils/city'
 import { List, AutoSizer } from 'react-virtualized';
+import { NavHeader } from '../../components'
 
 import axios from 'axios'
 import './index.scss'
 
 
+const alert = Modal.alert;
 
 export default class CityList extends React.Component {
 
-    state = {
-        cities: {}, // 城市列表
-        citiesIndex: [], //城市索引列表
-        scrollToIndex: 0, // 列表滚动的距离
-        seletedOneIndex: 0 // 被选中的索引
+    constructor(props) {
+        super(props)
+        // 处理index数组得到每个索引下列表的高度范围存在 EachIndexHeight 中, 供列表滚动式索引设置用
+        this.EachIndexHeight = {}
+        this.state = {
+            cities: {}, // 城市列表
+            citiesIndex: [], //城市索引列表
+            scrollToIndex: 0, // 列表滚动的距离
+            seletedOneIndex: 0 // 被选中的索引
+        }
     }
 
     componentDidMount() {
@@ -46,6 +53,9 @@ export default class CityList extends React.Component {
         // 添加当前城市
         cities['#'] = [currentCity]
 
+        // 处理index数组得到每个索引下列表的高度范围存在 EachIndexHeight 中, 供列表滚动式索引设置用
+        this.EachIndexHeight = this.createEachIndexHeight(citiesIndex, cities)
+
         //更新状态 处理完的数据
         this.setState({
             citiesIndex,
@@ -55,14 +65,12 @@ export default class CityList extends React.Component {
 
     //索引点击处理事件
     clickIndexHandler = (v, i) => {
-        console.log(i)
         //被点击的索引高亮
         //列表滚动
         this.setState({
             seletedOneIndex: i,
             scrollToIndex: i
         })
-
     }
 
     //城市列表渲染
@@ -94,7 +102,7 @@ export default class CityList extends React.Component {
                     cityArray.map((city, i) => {
                         return (
                             <div key={city.label} className="list-item"
-                                onClick={() => { setLocalCity(city); this.props.history.goBack() }}>
+                                onClick={() => { this.setCity(city) }}>
                                 {
                                     i === 0
                                         ? <div className="classify" >{c}</div>
@@ -109,35 +117,43 @@ export default class CityList extends React.Component {
         );
     }
 
-    //列表滚动事件处理 让索引列表动起来
-    listOnScroll = ({ scrollTop }) => {
-        let { citiesIndex, cities } = this.state
-        let heightObj = []
-        let currentH = 0
-        let preNum = 0
-        for (let i = 0; i < citiesIndex.length; i++) {
-            preNum = currentH
-            const c = citiesIndex[i];
-            let len = cities[c].length
-            currentH += len * 40 + 30 + len
-            heightObj.push({
-                index: c,
-                statH: preNum,
-                endH: currentH
-            })
+    //点击城市项修改城市 
+    setCity = (city) => {
+        if (["北京", "上海", "广州", "深圳"].includes(city.label)) {
+            alert('你选择的城市', city.label, [
+                { text: '取消', onPress: () => { } },
+                {
+                    text: '确定', onPress: () => {
+                        Toast.info("操作成功", 1)
+                        //把点击获取的城市存入缓存中，供其他以页面使用
+                        setLocalCity(city);
+                        //返回主页
+                        this.props.history.goBack()
+                    }
+                },
+            ])
+        } else {
+            Toast.info(`${city.label}没有房源，请重新选择~`, 1)
         }
 
+    }
+
+    //列表滚动事件处理 让索引列表动起来
+    listOnScroll = ({ scrollTop }) => {
         let scrollNm = 0
-        for (let i = 0; i < heightObj.length; i++) {
-            const e = heightObj[i];
+        for (let i = 0; i < this.EachIndexHeight.length; i++) {
+            const e = this.EachIndexHeight[i];
             if (scrollTop >= e.statH && scrollTop < e.endH) {
-                scrollNm = citiesIndex.findIndex((v) => (v === e.index))
+                scrollNm = i
                 break
             }
         }
-        this.setState({
-            seletedOneIndex: scrollNm
-        })
+        //判断当前索引与 最新计算出的索引 只用不同时才更新状态
+        if (scrollNm !== this.state.seletedOneIndex) {
+            this.setState({
+                seletedOneIndex: scrollNm
+            })
+        }
     }
 
     //工具函数 -- 处理 索引 改为大写 或替换 成需要的索引
@@ -163,17 +179,39 @@ export default class CityList extends React.Component {
         return c
     }
 
+    //处理index数组得到每个索引下列表的高度范围存在 EachIndexHeight 中,供列表滚动式索引设置用
+    /*
+    EachIndexHeight =  [
+            {index: "#", statH: 0, endH: 71},
+            {index: "hot", statH: 71, endH: 265},
+            {index: "a", statH: 265, endH: 336},
+            {index: "b", statH: 336, endH: 489},
+            .....
+        ]
+      */
+    createEachIndexHeight = (citiesIndex, cities) => {
+        let EachIndexHeight = []
+        let currentH = 0
+        let preNum = 0
+        for (let i = 0; i < citiesIndex.length; i++) {
+            preNum = currentH
+            const c = citiesIndex[i];
+            let len = cities[c].length
+            currentH += len * 40 + 30 + len
+            EachIndexHeight.push({
+                index: c,
+                statH: preNum,
+                endH: currentH
+            })
+        }
+        return EachIndexHeight
+    }
+
     render() {
         return (
             <div className="citylist">
-                <NavBar
-                    className="navbar"
-                    mode="light"
-                    icon={<i className="iconfont icon-back"></i>}
-                    onLeftClick={() => this.props.history.goBack()}
-                >
-                    城市选择
-                </NavBar>
+                <NavHeader title={"城市选择"} />
+
                 {/* 城市列表 */}
                 <AutoSizer>
                     {this.renderList}

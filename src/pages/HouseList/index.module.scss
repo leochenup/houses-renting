@@ -1,0 +1,264 @@
+// .houseList {
+//     width: 100%;
+//     height: 100%;
+
+
+//     .navBar {
+//         width: 100%;
+//         height: 45px;
+//         display: flex;
+//         justify-content: space-between;
+//         background-color: #f6f5f6;
+//         padding: 7.5px 0;
+
+//         .leftContainer {
+//             padding: 0 10px;
+//             line-height: 30px;
+//             background-color: #f6f5f6;
+
+//             :global {
+//                 .icon-back {
+//                     font-size: 16px !important;
+//                     color: #333;
+//                 }
+//             }
+//         }
+
+//         .centerContainer {
+//             width: 100%;
+//             height: auto;
+//             display: flex;
+//             justify-content: space-between;
+//             align-items: center;
+//             background-color: #ffffff;
+//             border-top-left-radius: 3px;
+//             border-bottom-left-radius: 3px;
+//             border-top-right-radius: 3px;
+//             border-bottom-right-radius: 3px;
+
+//             .centerContLeft {
+//                 border-right: 1px solid rgba(0, 0, 0, 0.1);
+//                 white-space: nowrap;
+//                 background-color: #ffffff;
+//                 padding: 0 5px;
+
+
+//                 :global {
+//                     .icon-arrow {
+//                         font-size: 12px !important;
+//                         color: #333;
+//                         margin-left: 5px;
+//                     }
+//                 }
+
+//                 span {
+//                     font-size: 13px;
+//                 }
+
+//             }
+
+//             .centerContRight {
+//                 width: 100%;
+//                 background-color: #ffffff;
+//                 padding-left: 5px;
+
+
+//                 :global {
+//                     .icon-seach {
+//                         font-size: 12px !important;
+//                         color: #999999;
+//                         margin-right: 5px;
+//                     }
+//                 }
+
+//                 span {
+//                     font-size: 13px;
+//                     color: #999999;
+//                 }
+//             }
+//         }
+
+//         .rightContainer {
+//             padding: 0 10px;
+//             line-height: 30px;
+//             background-color: #f6f5f6;
+
+//             :global {
+//                 .icon-map {
+//                     font-size: 20px !important;
+//                     color: #21b97a;
+//                 }
+//             }
+
+//         }
+//     }
+
+
+
+
+
+
+//     
+//     }
+
+.houseList {
+    width: 100%;
+    height: 100%;
+}
+
+
+.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hide {
+    opacity: 0;
+    animation-delay: .1s;
+    animation: hi .3s .3s forwards;
+}
+
+@keyframes hi {
+    from {
+        visibility: hidden;
+    }
+
+    to {
+        visibility: hidden;
+    }
+}
+
+.pickerWrapper {
+    transition: .3s ease-in-out;
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 90px;
+
+
+    .pickerBox {
+        width: 100%;
+        height: 50%;
+        background-color: #ffffff;
+        position: relative;
+        padding-bottom: 50px;
+
+        .picker {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+
+            :global {
+                .am-picker-col-item {
+                    font-size: 14px !important;
+                }
+            }
+        }
+
+        .controllBtn {
+            height: 50px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+
+            .cancel {
+                text-align: center;
+                line-height: 50px;
+                flex: 1;
+                color: #21b97a;
+            }
+
+            .comfirm {
+                text-align: center;
+                line-height: 50px;
+                flex: 2;
+                color: #ffffff;
+                background-color: #21b97a;
+            }
+        }
+    }
+}
+
+// }
+
+
+
+
+.topBar {
+    height: 45px;
+    padding: 5.5px 0px;
+    background-color: #f6f5f6;
+
+    .searchBox {
+        width: 100%;
+        z-index: 10;
+        left: 50%;
+        padding: 0 10px;
+
+        :global {
+            .icon-back {
+                font-size: 16px !important;
+            }
+        }
+
+        .searchLeft {
+            background-color: #fff;
+            width: 100%;
+            margin: 0 10px;
+            border-radius: 3px;
+            height: 34px;
+            padding: 5px 5px 5px 8px;
+            line-height: 34px;
+
+            .location {
+                span {
+                    font-size: 13px;
+                    margin-right: 5px;
+                }
+
+                :global {
+                    .icon-arrow {
+                        font-size: 12px !important;
+                    }
+                }
+            }
+
+            .searchForm {
+                border-left: 1px solid #e5e5e5;
+                height: 16px;
+                line-height: 16px;
+                padding-left: 10px;
+                margin-left: 10px;
+
+                :global {
+                    .icon-seach {
+                        font-size: 12px !important;
+                        margin-right: 4px;
+                        color: #999;
+                    }
+                }
+
+                span {
+                    font-size: 13px;
+                    color: #999;
+                }
+            }
+        }
+
+        :global {
+            .icon-map {
+                color: #21b97a;
+                font-size: 25px;
+            }
+        }
+
+    }
+}
