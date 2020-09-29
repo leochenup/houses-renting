@@ -1,6 +1,12 @@
+.fixed {
+    position: fixed;
+    top: -90px;
+    z-index: 99999;
+}
+
 .root {
     width: 100%;
-
+    margin-top: 45px;
 
     .show {
         visibility: visible !important;
@@ -23,5 +29,7 @@
         width: 100%;
         position: absolute;
         z-index: 9999;
+        height: 0;
+        top: 44px !important;
     }
 }

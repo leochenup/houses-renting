@@ -1,5 +1,6 @@
 import { getCityFromLocal, setLocalCity } from './city'
 import { API } from './api'
+import { BASE_URL } from './url'
 
 const formatCityList = list => {
     //城市列表
@@ -95,5 +96,6 @@ export {
     getCurrentCity,
     handlerIndex,
     getListScrollToNumber,
-    API
+    API,
+    BASE_URL
 }

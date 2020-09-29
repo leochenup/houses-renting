@@ -12,16 +12,16 @@ class NavHeader extends Component {
     static propTypes = {
         click: PropTypes.func,
         title: PropTypes.string.isRequired,
-
     }
 
     render() {
         return (
             <NavBar
-                className={style.navBar}
+                className={[style.navBar, this.props.className].join(' ')}
                 mode="light"
                 icon={<i className="iconfont icon-back"></i>}
-                onLeftClick={() => { this.props.history.goBack() }}
+                onLeftClick={this.props.click ? this.props.click : () => { this.props.history.goBack() }}
+                rightContent={this.props.rightContent}
             >
                 {this.props.title}
             </NavBar>

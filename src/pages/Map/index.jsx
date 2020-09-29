@@ -1,7 +1,7 @@
 import React from 'react'
 import { getCurrentCity } from '../../utils/index'
 import { Toast, ActivityIndicator } from 'antd-mobile';
-import { CustomList } from '../../components'
+import { ListItem } from '../../components'
 import style from './index.module.scss'
 import NavHeader from '../../components/NavHeader/index'
 import { API } from '../../utils'
@@ -260,26 +260,10 @@ export default class Map extends React.Component {
                             <span className={style.listTitle}>房屋列表</span>
                             <span className={style.listTitleMore}>更多房源</span>
                         </div>
-                        <CustomList
-                            data={this.state.currenArea.list}
-                            renderItem={(value, index, key) => (
-                                <div className={style.listItemBox} key={key}>
-                                    <img src={`${BASE_URL}${value.houseImg}`} alt="" />
-                                    <div className={style.rightDesc}>
-                                        <div className={style.topTitle}>
-                                            <p className={style.topTitleP1}>{value.title}</p>
-                                            <p className={style.topTitleP2}>{value.desc}</p>
-                                        </div>
-                                        <div className={style.bottomTitle}>
-                                            {value.tags.map((tag, index) => <span key={index + tag} className={style.houseTag}>{tag}</span>)}
-                                        </div>
-                                        <div>
-                                            <span className={style.price}>{value.price}元/月</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                        />
+
+                        <div className={style.listOuter} >
+                            {this.state.currenArea.list.map((value, index) => <ListItem value={value} index={index} />)}
+                        </div>
                     </div>
 
                     <ActivityIndicator

@@ -30,7 +30,7 @@ const NAVLIST = [
         title: "地图找房"
     },
     {
-        towhere: "/home/add",
+        towhere: "/rent/add",
         img: nav_4,
         title: "去出租"
     },

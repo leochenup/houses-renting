@@ -13,6 +13,7 @@ export default class index extends Component {
 
     render() {
         const { titleSelectedStatus, tintTilte, closePickerBox, toggleMoreBox, togglePickerBox } = this.props
+     
         return (
             <div className={styles.selectBar}>
                 {PICKERBARITEMS.map((item, index) => (

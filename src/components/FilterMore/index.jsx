@@ -16,7 +16,7 @@ export default class index extends Component {
 
     onSaveData = () => {
         const { onSaveDate } = this.props
-        onSaveDate(this.state.queryStr, 'more')
+        onSaveDate('more', this.state.queryStr)
     }
 
     addData = (item, title, type) => {
@@ -97,15 +97,17 @@ class Item extends React.Component {
             < div className={styles.moreItemBox} >
                 <span className={styles.moreTitle}>{obj.title}</span>
                 <div className={styles.optionsBox}>
-                    {obj.options.map((item, i) => (
-                        <div className={[styles.option, data.includes(item.value) ? styles.selected : ''].join(' ')}
-                            key={i + item.label}
-                            onClick={() => {
-                                addData(item, obj.title, obj.type)
-                            }}>
-                            {item.label}
-                        </div>
-                    ))}
+                    {obj.options.map((item, i) => {
+                        return (
+                            <div className={[styles.option, data.includes(item.value) ? styles.selected : ''].join(' ')}
+                                key={i + item.label}
+                                onClick={() => {
+                                    addData(item, obj.title, obj.type)
+                                }}>
+                                {item.label}
+                            </div>
+                        )
+                    })}
                 </div>
             </div >
         )

@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Route } from 'react-router-dom'
 import { TabBar } from 'antd-mobile';
 import './index.css'
+import AuthRoute from '../../components/AuthRoute'
 
 
-import Profile from '../Profile/index'
-import Index from '../Index/index'
-import HouseList from '../HouseList/index'
-import News from '../News/index'
+const Profile = lazy(() => import('../Profile/index'))
+const Index = lazy(() => import('../Index/index'))
+const HouseList = lazy(() => import('../HouseList/index'))
+const News  = lazy(() => import('../News/index'))
 
 
 const TABBARLIST = [
@@ -58,25 +59,28 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <div className="home">
-                {/* { 配置自路由} */}
-                <Route exact path="/home" component={Index} />
-                <Route path="/home/profile" component={Profile} />
-                <Route path="/home/news" component={News} />
-                <Route path="/home/list" component={HouseList} />
+            <Suspense fallback={<div>loading...</div>}>
+                <div className="home">
+                    {/* { 配置自路由} */}
+                    <Route exact path="/home" component={Index} />
+                    <AuthRoute path='/home/profile' component={Profile} />
+                    <Route path="/home/news" component={News} />
+                    <Route path="/home/list" component={HouseList} />
 
-                <div className="tabbar">
-                    <TabBar
-                        unselectedTintColor="#949494"
-                        tintColor="rgb(33,185,122)"
-                        barTintColor="white"
-                        hidden={false}
-                        noRenderContent={true}
-                    >
-                        {this.renderTabBarItems()}
-                    </TabBar>
+
+                    <div className="tabbar">
+                        <TabBar
+                            unselectedTintColor="#949494"
+                            tintColor="rgb(33,185,122)"
+                            barTintColor="white"
+                            hidden={false}
+                            noRenderContent={true}
+                        >
+                            {this.renderTabBarItems()}
+                        </TabBar>
+                    </div>
                 </div>
-            </div>
+            </Suspense>
         )
     }
 }

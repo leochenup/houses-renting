@@ -25,33 +25,45 @@ export default class Filter extends Component {
             area: [],
             rentType: [],
             price: [],
-            more: []
-        }
+            more: [],
+            roomType: [],
+            floor: [],
+            characteristic: [],
+            oriented: []
+        },
+
     }
 
+    queryStrArrays = {
+        area: [],
+        rentType: [],
+        price: [],
+        more: [],
+        roomType: [],
+        floor: [],
+        characteristic: [],
+        oriented: []
+    }
 
     filterData = {}
 
-
     componentDidMount() {
         this.getFilterData()
-
     }
 
 
     //获取数据
     getFilterData = async () => {
-        let currentCity = await getCurrentCity()
+        this.currentCity = await getCurrentCity()
         let res = await API.get('/houses/condition', {
-            params: { id: currentCity.value }
+            params: { id: this.currentCity.value }
         })
         this.filterData = res.data.body
-        console.log(this.filterData)
     }
 
     // 高亮选择 title
     tintTilte = (type) => {
-        if (this.state.queryStrArrays[this.state.pickerType].length === 0) {
+        if (this.queryStrArrays[this.state.pickerType].length === 0) {
             this.setState({
                 titleSelectedStatus: {
                     ...this.state.titleSelectedStatus,
@@ -73,7 +85,6 @@ export default class Filter extends Component {
                 }
             })
         }
-
     }
 
     // 取消高亮选择 title
@@ -88,13 +99,15 @@ export default class Filter extends Component {
 
     // 切换MoreBox
     toggleMoreBox = (type) => {
+        if (!this.state.isShowMoreBox) {
+            document.body.style.overflowY = 'hidden'
+        }
         this.setMoreBoxData()
         this.setState({
             isShowMoreBox: !this.state.isShowMoreBox,
             pickerType: type
         })
     }
-
 
     setMoreBoxData = () => {
         let pickerData = [
@@ -112,7 +125,6 @@ export default class Filter extends Component {
     closePickerBox = () => {
         this.setState({
             isShowPickerBox: false,
-
         })
     }
 
@@ -120,6 +132,7 @@ export default class Filter extends Component {
     togglePickerBox = (type) => {
         this.setCurrentPickerData(type)
         if (!this.state.isShowPickerBox) {
+            document.body.style.overflowY = 'hidden'
             this.setState({
                 isShowPickerBox: !this.state.isShowPickerBox,
                 pickerType: type
@@ -141,26 +154,35 @@ export default class Filter extends Component {
         })
     }
 
-    onSaveDate = (queryStrArray, type) => {
-        if (type !== 'more') {
+    onSaveDate = (type, res) => {
+        document.body.style.overflowY = ''
+        if (type === 'more') {
+            this.queryStrArrays = {
+                ...this.queryStrArrays,
+                ...res,
+                more: [true]
+            }
             this.setState({
-                queryStrArrays: {
-                    ...this.state.queryStrArrays,
-                    [type]: queryStrArray
-                }
+                queryStrArrays: this.queryStrArrays,
+            }, () => {
+                this.sendRequest()
             })
         } else {
             this.setState({
-                queryStrArrays: {
-                    ...this.state.queryStrArrays,
-                    ...queryStrArray,
-                    more: [true]
-                }
+                queryStrArrays: this.queryStrArrays
+            }, () => {
+                this.sendRequest()
             })
         }
     }
 
     onCancelData = (type) => {
+        document.body.style.overflowY = ''
+        this.queryStrArrays = {
+            ...this.queryStrArrays,
+            [type]: []
+        }
+
         if (type !== 'more') {
             this.setState({
                 queryStrArrays: {
@@ -173,6 +195,14 @@ export default class Filter extends Component {
                 }
             })
         } else {
+            this.queryStrArrays = {
+                ...this.queryStrArrays,
+                more: [],
+                roomType: [],
+                floor: [],
+                characteristic: [],
+                oriented: []
+            }
             this.setState({
                 queryStrArrays: {
                     ...this.state.queryStrArrays,
@@ -190,10 +220,43 @@ export default class Filter extends Component {
         }
     }
 
+    onPickerChange = (res, type) => {
+        this.queryStrArrays[type] = res
+        if (type === 'more') {
+            this.queryStrArrays['more'] = true
+        }
+    }
+
+    sendRequest = async () => {
+        let { queryStrArrays } = this.state
+        let params = { cityId: this.currentCity.value }
+        if (queryStrArrays.area[0] === 'area') {
+            params.area = queryStrArrays.area[queryStrArrays.area.length - 1]
+                ? queryStrArrays.area[queryStrArrays.area.length - 1] : ''
+            params.subway = ''
+        } else {
+            params.subway = queryStrArrays.area[queryStrArrays.area.length - 1]
+                ? queryStrArrays.area[queryStrArrays.area.length - 1] : ''
+            params.area = ''
+        }
+        params.rentType = queryStrArrays.rentType[0] ? queryStrArrays.rentType[0] : ''
+        params.price = queryStrArrays.price[0] ? queryStrArrays.price[0] : ''
+        params.roomType = queryStrArrays.roomType[0] ? queryStrArrays.roomType[0] : ''
+        params.oriented = queryStrArrays.oriented[0] ? queryStrArrays.oriented[0] : ''
+        params.characteristic = queryStrArrays.characteristic[0] ? queryStrArrays.characteristic[0] : ''
+        params.floor = queryStrArrays.floor[0] ? queryStrArrays.floor[0] : ''
+        params.start = 1
+        params.end = 20
+
+        let { renderHouseList } = this.props
+        renderHouseList(params)
+    }
+
     render() {
         const { isShowMoreBox, isShowPickerBox, titleSelectedStatus, pickerType, pickerData } = this.state
+        const { isTitleFixed } = this.props
         return (
-            <div className={styles.root}>
+            <div className={[styles.root, isTitleFixed ? styles.fixed : ''].join(' ')}>
                 <div className={[styles.mask, isShowPickerBox ? styles.show : ''].join(' ')}
                     onClick={this.closePickerBox}></div>
                 <div className={styles.content}>
